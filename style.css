@@ -101,6 +101,7 @@ header {
   transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
   overflow-y: scroll;
 } */
+
 .cart {
   height: 100vh;
   max-height: 100%;
@@ -115,13 +116,16 @@ header {
   box-shadow: -2px 0 4px hsl(0, 4%, 15% / 10%);
   transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
+
 .cart::-webkit-scrollbar {
   display: none;
 }
+
 .cart {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
 .cart.active {
   right: 0;
   transition: 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
@@ -130,6 +134,7 @@ header {
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
+
 
 .cart-title {
   text-align: center;
@@ -171,6 +176,14 @@ header {
   font-style: italic;
   font-weight: 500;
   cursor: pointer;
+}
+
+.clear-all{
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: #fff;
+  font-style: italic;
 }
 
 #close-cart {

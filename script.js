@@ -36,6 +36,10 @@ function ready() {
     button.addEventListener("click", addCartClicked);
   }
 
+  // Clear All
+  var clearAllButton = document.querySelector('.clear-all');
+  clearAllButton.addEventListener("click", clearAllCartItems);
+
   // Update total
   updateTotal();
 
@@ -55,6 +59,13 @@ function ready() {
     // Send email notification
     sendWhatsAppMessage(products, totalPrice);
   });
+}
+
+// Clear all items from cart
+function clearAllCartItems() {
+  var cartContent = document.getElementsByClassName('cart-content')[0];
+  cartContent.innerHTML = '';
+  updateTotal();
 }
 
 // Remove Cart Item
@@ -118,23 +129,7 @@ function updateTotal() {
   document.getElementsByClassName('total-price')[0].innerText = '₦' + total.toLocaleString();
 }
 
-// Function to send email notification
-function sendEmailNotification(products, totalPrice) {
-  const subject = 'New Order Placed';
-  const body = `New Order Details:\n\nProducts:\n${products}\nTotal Price: ₦${totalPrice}`;
-
-  const encodedSubject = encodeURIComponent(subject)
-  const encodedBody = encodeURIComponent(body)
-
-  const mailtoLink = `mailto:daomietecott@gmail.com?subject=${encodedSubject}&body=${encodedBody}`;
-  
-  // Log the mailto link for debugging
-  console.log(mailtoLink);
-
-  // Open the mailto link
-  window.location.href = mailtoLink;
-}
-
+// Function to send WhatsApp message
 function sendWhatsAppMessage(products, totalPrice) {
   const message = `New Order Details:\n\nProducts:\n${products}\nTotal Price: ₦${totalPrice}`;
   const encodedMessage = encodeURIComponent(message);
