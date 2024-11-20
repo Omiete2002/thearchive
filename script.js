@@ -13,52 +13,73 @@ closeCart.onclick = () => {
   cart.classList.remove("active");
 }
 
-// Making Add to Cart
-if (document.readyState == "loading") {
-  document.addEventListener("DOMContentLoaded", ready);
-} else {
-  ready();
+
+// Function to disable Add to Cart for sold-out products
+function disableSoldOutProducts() {
+  const products = document.querySelectorAll('.product-box'); // Select all product boxes
+
+  products.forEach(product => {
+    const priceElement = product.querySelector('.price'); // Get the price element
+    const addCartButton = product.querySelector('.add-cart'); // Get the Add to Cart button
+    const title = product.querySelector('.product-title')
+
+    if (priceElement.innerText.toLowerCase() === "sold out") {
+      // Disable the button
+      addCartButton.disabled = true;
+      addCartButton.classList.add('disabled'); // Add a class for styling
+      title.innerHTML = "This product is sold out."; // Optional: Add a tooltip
+    }
+  });
 }
 
 // Function when DOM is ready
 function ready() {
+  disableSoldOutProducts()
+
   // Remove Item From Cart
   var removeCartButtons = document.getElementsByClassName('cart-remove');
   for (var i = 0; i < removeCartButtons.length; i++) {
     var button = removeCartButtons[i];
     button.addEventListener("click", removeCartItem);
   }
-
+  
   // Add to Cart
   var addCart = document.getElementsByClassName('add-cart');
   for (var i = 0; i < addCart.length; i++) {
     var button = addCart[i];
     button.addEventListener("click", addCartClicked);
   }
-
+  
   // Clear All
   var clearAllButton = document.querySelector('.clear-all');
   clearAllButton.addEventListener("click", clearAllCartItems);
-
+  
   // Update total
   updateTotal();
-
+  
   // Pay Now button click event
   document.getElementById('pay-now-btn').addEventListener('click', function() {
     // Gather products and total price from cart
     const cartBoxes = document.querySelectorAll('.cart-box');
     let products = '';
     let totalPrice = document.querySelector('.total-price').innerText;
-
+    
     cartBoxes.forEach(box => {
       const title = box.querySelector('.cart-product-title').innerText;
       const price = box.querySelector('.cart-price').innerText;
       products += `${title} - ${price}\n`;
     });
-
+    
     // Send email notification
     sendWhatsAppMessage(products, totalPrice);
   });
+}
+
+// Making Add to Cart
+if (document.readyState == "loading") {
+  document.addEventListener("DOMContentLoaded", ready);
+} else {
+  ready();
 }
 
 // Clear all items from cart

@@ -240,6 +240,13 @@ header {
   border-radius: 4px;
 } */
 
+.add-cart.disabled {
+  background-color: gray;
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
 .cart-remove {
   font-size: 24px;
   color: var(--main-color);
