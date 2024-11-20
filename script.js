@@ -131,8 +131,20 @@ function updateTotal() {
 
 // Function to send WhatsApp message
 function sendWhatsAppMessage(products, totalPrice) {
-  const message = `New Order Details:\n\nProducts:\n${products}\nTotal Price: ₦${totalPrice}`;
-  const encodedMessage = encodeURIComponent(message);
+  let orderNumber = 1001; // Start order number
+
+  const cartBoxes = document.querySelectorAll('.cart-box');
+  let messageContent = 'New Order Details:\n\nProducts:\n';
+
+  cartBoxes.forEach((box) => {
+    const title = box.querySelector('.cart-product-title').innerText;
+    const price = box.querySelector('.cart-price').innerText;
+    const currentOrderNumber = orderNumber++;
+    messageContent += `Order No: ${currentOrderNumber}\n${title} - ${price}\n\n`;
+  });
+
+  messageContent += `Total Price: ₦${totalPrice}`;
+  const encodedMessage = encodeURIComponent(messageContent);
   const whatsappNumber = '+2349011747867';
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
 
